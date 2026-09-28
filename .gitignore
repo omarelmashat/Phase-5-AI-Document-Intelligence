@@ -1,0 +1,21 @@
+# Secrets
+.env
+*.key
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+
+# Runtime data (uploads must never be committed)
+uploads/
+tmp/
+chroma_db/
+*.sqlite3
+
+# Large or private sample documents (keep sample_docs/ small)
+*.zip
+sample_docs/private/
+.DS_Store
