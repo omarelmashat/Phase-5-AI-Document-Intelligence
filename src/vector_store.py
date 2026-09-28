@@ -4,25 +4,32 @@ DEFAULT_TOP_K = 4
 
 
 class VectorStoreError(Exception):
+    pass
+
+
 class DocumentVectorStore:
     def __init__(self, collection_name: str = "document_session"):
         self._client = chromadb.EphemeralClient()
         self._collection_name = collection_name
-        self._collection = self._client.get_or_create_collection(name=collection_name)
+        self._collection = self._client.get_or_create_collection(
+            name=collection_name, metadata={"hnsw:space": "cosine"}
+        )
 
     def reset(self) -> None:
         try:
             self._client.delete_collection(self._collection_name)
         except Exception:
             pass
-        self._collection = self._client.get_or_create_collection(name=self._collection_name)
+        self._collection = self._client.get_or_create_collection(
+            name=self._collection_name, metadata={"hnsw:space": "cosine"}
+        )
 
     def add_chunks(self, chunks: list[dict], embeddings: list[list[float]]) -> None:
         if not chunks:
             return
         if len(chunks) != len(embeddings):
             raise VectorStoreError(
-                f"Got {len(chunks)} chunks but {len(embeddings)} embeddings — they must match 1:1."
+                f"Got {len(chunks)} chunks but {len(embeddings)} embeddings - they must match 1:1."
             )
         try:
             self._collection.add(
