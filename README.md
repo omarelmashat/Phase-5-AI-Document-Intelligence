@@ -180,6 +180,8 @@ cp .env.example .env
 On Windows, you can also copy `.env.example` manually and rename it to `.env`.
 
 Then add the required API key and configuration values to `.env`.
+The application loads this file from the project folder, regardless of the directory
+from which you launch Streamlit.
 
 **Never commit `.env` to the repository.**
 
@@ -270,4 +272,3 @@ The most important settings to tune are:
 The goal of the project is to provide an AI-powered document intelligence system that combines **document processing, OCR, embeddings, vector search, and LLM-based question answering** in a single application.
 
 The system is designed to make documents easier to understand and interact with while keeping generated answers grounded in the uploaded document.
-
